@@ -17,19 +17,8 @@ from openzeppelin.token.erc721.library import (
 
 #
 # Custom logic
-# 
+#
 
-@storage_var
-func l1_contract_storage() -> (address: felt):
-end
-
-@storage_var
-func minter_storage() -> (game: felt):
-end
-
-@storage_var
-func next_token_id_storage() -> (next_token_id: felt):
-end
 
 @constructor
 func constructor{
@@ -39,80 +28,15 @@ func constructor{
     }(
         name: felt,
         symbol: felt,
-        minter: felt,
-        l1_contract: felt
+        minter: felt
     ):
     ERC721_initializer(name, symbol)
-
-    minter_storage.write(minter)
-    l1_contract_storage.write(l1_contract)
-
+    let to = minter
+    let token_id : Uint256 = Uint256(1, 0)
+    ERC721_mint(to, token_id)
     return ()
 end
 
-@external
-func mint{
-        syscall_ptr: felt*,
-        pedersen_ptr: HashBuiltin*,
-        range_check_ptr
-    }(
-        user: felt,
-    ):
-
-    #
-    # TODO
-    #
-
-    return()
-end
-
-
-@external
-func bridge_to_l1{
-        syscall_ptr: felt*,
-        pedersen_ptr:HashBuiltin*,
-        range_check_ptr
-    }(
-        l1_user: felt,
-        token_id: felt
-    ):
-
-    # 
-    # TODO
-    #
-
-    return()
-end
-
-@l1_handler
-func bridge_to_l2{
-        syscall_ptr: felt*,
-        pedersen_ptr:HashBuiltin*,
-        range_check_ptr
-    }(
-        from_address: felt,
-        l2_user: felt,
-        token_id: felt
-    ):
-
-    #
-    # TODO
-    #
-
-    return ()
-end
-
-func felt_to_uint256{
-        syscall_ptr: felt*,
-        pedersen_ptr: HashBuiltin*,
-        range_check_ptr
-    }(
-        x: felt
-    ) -> (x_ : Uint256):
-    let (high, low) = split_felt(x)
-
-    return (Uint256(low=low, high=high))
-end
  
 #
 # Standard ERC721 ABI - No need to look into this
@@ -138,8 +62,8 @@ func balanceOf{syscall_ptr : felt*, pedersen_ptr : HashBuiltin*, range_check_ptr
 end
 
 @view
-func ownerOf{syscall_ptr : felt*, pedersen_ptr : HashBuiltin*, range_check_ptr}(
-        token_id : Uint256) -> (owner : felt):
+func ownerOf{syscall_ptr : felt*, pedersen_ptr : HashBuiltin*, range_check_ptr}() -> (owner : felt):
+    let token_id : Uint256 = Uint256(1, 0)
     let (owner : felt) = ERC721_ownerOf(token_id)
     return (owner)
 end
@@ -163,8 +87,8 @@ end
 #
 
 @external
-func approve{pedersen_ptr : HashBuiltin*, syscall_ptr : felt*, range_check_ptr}(
-        to : felt, token_id : Uint256):
+func approve{pedersen_ptr : HashBuiltin*, syscall_ptr : felt*, range_check_ptr}(to : felt):
+    let token_id : Uint256 = Uint256(1, 0)
     ERC721_approve(to, token_id)
     return ()
 end
