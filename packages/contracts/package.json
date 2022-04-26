@@ -44,9 +44,8 @@
     "compile:starknet": "hardhat starknet-compile --cairo-path 'openzeppelin_cairo/src'",
     "deploy:starknet:devnet": "./src/scripts/deployStarknetContracts.sh devnet",
     "deploy:starknet:testnet": "./src/scripts/deployStarknetContracts.sh testnet",
-    "test": "yarn run test:starknet && yarn run test:bridge",
-    "test:starknet": "hardhat test test/L2/*.ts --starknet-network devnet",
-    "test:bridge": "hardhat test test/L1-L2-messaging/*.ts --starknet-network devnet --network ganache",
+    "test": "yarn run test:starknet",
+    "test:starknet": "hardhat test test/*.ts --starknet-network devnet",
     "lint": "solhint contracts/**/*.sol && prettier --check . contracts/**/*.sol"
   }
 }
