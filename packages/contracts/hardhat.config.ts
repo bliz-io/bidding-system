@@ -26,14 +26,8 @@ const config = {
   },
   networks: {
     devnet: {
-      url: "http://localhost:5000",
-    },
-    testnet: {
-      url: "https://alpha4.starknet.io",
-    },
-    ganache: {
-      url: "http://0.0.0.0:8545",
-    },
+      url: "http://localhost:5001",
+    }
   },
   namedAccounts: {
     deployer: 0,
